@@ -1,8 +1,13 @@
-import { BaseModel, column } from "@adonisjs/lucid/orm";
+import { BaseModel, column, hasMany } from "@adonisjs/lucid/orm";
+import { type HasMany } from "@adonisjs/lucid/types/relations";
+import InventoryItem from "./inventory_item.js";
 
 export default class Product extends BaseModel {
     @column({ isPrimary: true })
     declare id: number
+
+    @column()
+    declare sku: string
 
     @column()
     declare name: string
@@ -16,9 +21,8 @@ export default class Product extends BaseModel {
     @column()
     declare isActive: boolean
 
-    @column()
-    declare stockQuantity: number
+    @hasMany(() => InventoryItem, { foreignKey: 'productId'})
+    declare inventory: HasMany<typeof InventoryItem>
 
-    @column()
-    declare reservedQuantity: number
+
 }
