@@ -1,0 +1,67 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: pg
+    environment:
+      POSTGRES_DB: app_db
+      POSTGRES_USER: app_user
+      POSTGRES_PASSWORD: app_password
+    ports:
+      - "5432:5432"      # expose to host (handy for local tools)
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Optional: run SQL/SH scripts on first boot
+      # - ./docker/initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app_user -d app_db"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  nats:
+    image: nats:2.10-alpine
+    container_name: nats
+    command: >
+      -js
+      -m 8222
+      -DV
+    ports:
+      - "4222:4222"   # client connections
+      - "8222:8222"   # monitoring UI (http://localhost:8222)
+    healthcheck:
+      # Try the monitoring endpoint; Alpine image has wget
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8222/varz >/dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  
+  app:
+    # you already have a Dockerfile for the app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      DB_CONNECTION: pg
+      DB_HOST: db           # <-- service name, NOT 127.0.0.1
+      DB_PORT: "5432"
+      DB_USER: app_user
+      DB_PASSWORD: app_password
+      DB_DATABASE: app_db
+      DB_SSL: "false"
+      DB_DEBUG: "false"
+    ports:
+      - "3333:3333"         # Adonis server
+    depends_on:
+      db:
+        condition: service_healthy
+    # For hot-reload in dev (optional)
+    # volumes:
+    #   - .:/app
+
+volumes:
+  pgdata:
