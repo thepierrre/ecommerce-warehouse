@@ -10,6 +10,9 @@ export default class Order extends BaseModel {
   @column()
   declare orderNumber: string;
 
+  @column()
+  declare warehouseNumber: string | null;
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
@@ -31,12 +34,20 @@ export default class Order extends BaseModel {
   @column()
   declare status: OrderStatus;
 
-  // For now, items are stored as JSON as a column.
-  // In the future, I may create a separate table for order items with a one-to-many relation.
-  // It may be useful for queries, e.g.:
-  // * handle partial refunds or partial cancellations
-  // * calculate how many of product X were sold this month
-  // * search for all orders with a certain product id
+  @column()
+  declare missingSkus: string[] | null;
+
+  @column()
+  declare rejectionReason: string | null;
+
+  /* ────────────────────────────────────────────────────────────────────────────────────────
+  For now, the items are stored as JSON inside the column.
+  In the future, I may create a separate table for order items with a one-to-many relation.
+  It may be useful for queries such as:
+    * handling partial refunds / partial cancellations
+    * calculating how many of product X were sold this month
+    * searching for all orders containing a certain product
+  ─────────────────────────────────────────────────────────────────────────────────────────── */
   @column()
   declare items: OrderItem[]
 }

@@ -1,6 +1,5 @@
 export interface OrderItem {
     productId: string;
+    sku: string;
     quantity: number;
-    unitPrice: number;
-    totalPrice: number;
 }

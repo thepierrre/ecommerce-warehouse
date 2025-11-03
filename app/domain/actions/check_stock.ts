@@ -3,6 +3,7 @@ import { OrderItem } from "../../types/order_item.js";
 
 export type StockCheckResultBase = {
     orderNumber: string,
+    warehouseNumber?: string,
 }
 
 export type StockCheckResultAccepted = StockCheckResultBase & {
@@ -18,8 +19,10 @@ export type StockCheckResultRejected = StockCheckResultBase & {
 export type StockCheckResult = StockCheckResultAccepted | StockCheckResultRejected;
 
 
-export async function checkStock({ orderNumber, items }: { orderNumber: string, items: OrderItem[] }): Promise<StockCheckResult> {
+export async function checkStock(payload: { items: OrderItem[] }): Promise<{missingSkus: string[]}> {
     const missingSkus: string[] = [];
+
+    const { items } = payload;
 
     // Simplified logic for now
     for (const item of items) {
@@ -27,21 +30,23 @@ export async function checkStock({ orderNumber, items }: { orderNumber: string, 
 
         if (!inv || inv.available < item.quantity) {
             missingSkus.push(item.sku);
-        }
+        } 
     }
 
-    if (missingSkus.length === 0) {
-        return {
-            status: "ACCEPTED",
-            orderNumber,
-        }
-    }
+    return { missingSkus };
 
-    return {
-        status: "REJECTED",
-        orderNumber,
-        missingSkus,
-        reason: "Missing stock",
-    }
+    // if (missingSkus.length === 0) {
+    //     return {
+    //         status: "ACCEPTED",
+    //         orderNumber,
+    //     }
+    // }
+
+    // return {
+    //     status: "REJECTED",
+    //     orderNumber,
+    //     missingSkus,
+    //     reason: "Missing stock",
+    // }
 
 }
