@@ -2,11 +2,14 @@ import vine from "@vinejs/vine";
 import { checkStock } from "../../actions/check_stock.js";
 import { emitOrderAccepted } from "../event-emitters/emit_order_accepted.js";
 import { emitOrderRejected } from "../event-emitters/emit_order_rejected.js";
-import { OrderCreatedEventSchema } from "../types/order_created_schema.js";
+import { OrderCreatedEventSchema } from "../types/order_created_event_schema.js";
 import Order from "#models/order";
+import { reserveStock } from "../../actions/reserve_stock.js";
+
+// TODO: Reserve stock for order items
 
 export async function handleOrderCreated(raw: unknown) {
-  const { orderNumber, items, warehouseNumber } = await vine.validate({
+  const { orderNumber, items } = await vine.validate({
     schema: OrderCreatedEventSchema,
     data: raw,
   });
@@ -20,16 +23,8 @@ export async function handleOrderCreated(raw: unknown) {
     // TODO: Add logging
     await emitOrderRejected({
       orderNumber,
-      warehouseNumber,
       missingSkus: [],
       reason: "SYSTEM_ERROR",
-    });
-
-    await Order.create({
-      orderNumber,
-      warehouseNumber,
-      status: "REJECTED",
-      rejectionReason: "SYSTEM_ERROR",
     });
 
     return;
@@ -38,7 +33,6 @@ export async function handleOrderCreated(raw: unknown) {
   // RECHECK: Decide if we should add an order partially accepted scenario
   if (missingSkus.length > 0) {
     await emitOrderRejected({
-      warehouseNumber,
       orderNumber,
       missingSkus,
       reason: "Missing stock",
@@ -46,7 +40,6 @@ export async function handleOrderCreated(raw: unknown) {
 
     await Order.create({
       orderNumber,
-      warehouseNumber,
       status: "REJECTED",
       missingSkus,
       rejectionReason: "Missing stock",
@@ -55,11 +48,19 @@ export async function handleOrderCreated(raw: unknown) {
     return;
   }
 
-  await emitOrderAccepted({ warehouseNumber, orderNumber });
+  try {
+    await reserveStock({ items });
+    await emitOrderAccepted({ orderNumber });
 
-  await Order.create({
-    orderNumber,
-    warehouseNumber,
-    status: "PROCESSING",
-  });
+    await Order.create({
+      orderNumber,
+      status: "PROCESSING",
+    });
+  } catch (err) {
+    await emitOrderRejected({
+      orderNumber,
+      missingSkus: [],
+      reason: "SYSTEM_ERROR",
+    });
+  }
 }

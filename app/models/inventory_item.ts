@@ -4,10 +4,13 @@ import Product from "./product.js";
 
 export default class InventoryItem extends BaseModel {
   @column({ isPrimary: true })
-  declare id: number;
+  declare id: string;
 
   @column()
-  declare productId: number;
+  declare productId: string;
+
+  @column()
+  declare sku: string;
 
   @column()
   declare location: string;

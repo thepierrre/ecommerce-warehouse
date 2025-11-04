@@ -6,12 +6,17 @@ export async function reserveStock(payload: { items: OrderItem[] }) {
 
   const trx = await db.transaction();
 
-  for (const item of items) {
-    await InventoryItem.query({ client: trx })
-      .where("sku", item.sku)
-      .decrement("available", item.quantity)
-      .increment("reserved", item.quantity);
-  }
+  try {
+    for (const item of items) {
+      await InventoryItem.query({ client: trx })
+        .where("sku", item.sku)
+        .decrement("available", item.quantity)
+        .increment("reserved", item.quantity);
+    }
 
-  await trx.commit();
+    await trx.commit();
+  } catch (err) {
+    await trx.rollback();
+    throw err;
+  }
 }
