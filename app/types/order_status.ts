@@ -1,10 +1,9 @@
 export const OrderStatuses = [
-    "PENDING_RESPONSE",
-    "PROCESSING",
-    "PACKED",
-    "SHIPPED",
-    "DELIVERED",
-    "REJECTED"
-] as const;
+  'PROCESSING',
+  'PACKED',
+  'SHIPPED',
+  'DELIVERED',
+  'REJECTED',
+] as const
 
-export type OrderStatus = typeof OrderStatuses[number];
+export type OrderStatus = (typeof OrderStatuses)[number]

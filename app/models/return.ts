@@ -1,17 +1,17 @@
-import { BaseModel, column } from "@adonisjs/lucid/orm"
-import { DateTime } from "luxon"
-import type { OrderStatus } from "../types/order_status.js"
-import { OrderItem } from "../types/order_item.js";
+import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { DateTime } from 'luxon'
+import type { OrderStatus } from '../types/order_status.js'
+import { OrderItem } from '../types/order_item.js'
 
 export default class Return extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
   @column()
-  declare returnNumber: string;
+  declare returnNumber: string
 
   @column()
-  declare orderNumber: string;
+  declare orderNumber: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -35,13 +35,13 @@ export default class Return extends BaseModel {
   declare notes: string | null
 
   @column()
-  declare totalPrice: number;
+  declare totalPrice: number
 
   @column()
-  declare status: OrderStatus;
+  declare status: OrderStatus
 
   @column()
   declare items: OrderItem[]
 }
 
-export type ReturnConditionSummary = 'OK' | 'DAMAGED' | 'MIXED';
+export type ReturnConditionSummary = 'OK' | 'DAMAGED' | 'MIXED'

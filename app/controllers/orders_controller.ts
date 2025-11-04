@@ -1,22 +1,22 @@
-import Order from "#models/order";
-import { HttpContext } from "@adonisjs/core/http";
+import Order from '#models/order'
+import { HttpContext } from '@adonisjs/core/http'
 
 export default class OrdersController {
-    async index() {
-        return await Order.all();
-    }
+  async index() {
+    return await Order.all()
+  }
 
-    async show({ params }: HttpContext) {
-       return await Order.findByOrFail(params.id);
-    }
+  async show({ params }: HttpContext) {
+    return await Order.findByOrFail(params.id)
+  }
 
-    accept() { }
+  accept() {}
 
-    startProcessing() { }
+  startProcessing() {}
 
-    pack() { }
+  pack() {}
 
-    ship() { }
+  ship() {}
 
-    deliver() { }
+  deliver() {}
 }

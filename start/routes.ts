@@ -5,8 +5,8 @@ import router from '@adonisjs/core/services/router'
 // router.get('/metrics', '');
 
 // Orders reading
-router.get("/orders", "OrdersController.index")
-router.get("/orders/:id", "OrdersController.show")
+router.get('/orders', 'OrdersController.index')
+router.get('/orders/:id', 'OrdersController.show')
 
 // Orders lifecycle actions
 router.post('/orders/:orderNumber/accept', 'OrdersController.accept')

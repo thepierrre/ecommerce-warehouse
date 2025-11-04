@@ -1,17 +1,17 @@
-import { BaseModel, column } from "@adonisjs/lucid/orm"
-import { DateTime } from "luxon"
-import type { OrderStatus } from "../types/order_status.js"
-import { OrderItem } from "../types/order_item.js";
+import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { DateTime } from 'luxon'
+import type { OrderStatus } from '../types/order_status.js'
+import { OrderItem } from '../types/order_item.js'
 
 export default class Order extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
   @column()
-  declare orderNumber: string;
+  declare orderNumber: string
 
   @column()
-  declare warehouseNumber: string | null;
+  declare warehouseNumber: string | null
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -29,16 +29,16 @@ export default class Order extends BaseModel {
   declare shippingAddress: string
 
   @column()
-  declare totalPrice: number;
+  declare totalPrice: number
 
   @column()
-  declare status: OrderStatus;
+  declare status: OrderStatus
 
   @column()
-  declare missingSkus: string[] | null;
+  declare missingSkus: string[] | null
 
   @column()
-  declare rejectionReason: string | null;
+  declare rejectionReason: string | null
 
   /* ────────────────────────────────────────────────────────────────────────────────────────
   For now, the items are stored as JSON inside the column.
