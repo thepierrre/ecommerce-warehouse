@@ -1,23 +1,23 @@
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
-import { type BelongsTo } from '@adonisjs/lucid/types/relations'
-import Product from './product.js'
+import { BaseModel, belongsTo, column } from "@adonisjs/lucid/orm";
+import { type BelongsTo } from "@adonisjs/lucid/types/relations";
+import Product from "./product.js";
 
 export default class InventoryItem extends BaseModel {
   @column({ isPrimary: true })
-  declare id: number
+  declare id: number;
 
   @column()
-  declare productId: number
+  declare productId: number;
 
   @column()
-  declare location: string
+  declare location: string;
 
   @column()
-  declare available: number
+  declare available: number;
 
   @column()
-  declare reserved: number
+  declare reserved: number;
 
   @belongsTo(() => Product)
-  declare product: BelongsTo<typeof Product>
+  declare product: BelongsTo<typeof Product>;
 }
