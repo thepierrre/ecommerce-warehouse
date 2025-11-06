@@ -1,7 +1,6 @@
 import { BaseModel, column } from "@adonisjs/lucid/orm";
+import { OrderItem, type ReturnStatus } from "@thepierrre/ecom-common";
 import { DateTime } from "luxon";
-import { OrderItem } from "../types/order_item.js";
-import { type ReturnStatus } from "../types/return_status.js";
 
 export default class Return extends BaseModel {
   @column({ isPrimary: true })

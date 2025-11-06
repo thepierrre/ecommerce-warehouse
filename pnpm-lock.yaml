@@ -21,8 +21,8 @@ importers:
         specifier: ^21.8.0
         version: 21.8.0(@adonisjs/assembler@7.8.2(typescript@5.8.3))(@adonisjs/core@6.19.0(@adonisjs/assembler@7.8.2(typescript@5.8.3))(@vinejs/vine@3.0.1))(@vinejs/vine@3.0.1)(luxon@3.7.2)(pg@8.16.3)
       '@thepierrre/ecom-common':
-        specifier: 0.0.7
-        version: 0.0.7
+        specifier: 0.0.8
+        version: 0.0.8
       '@vinejs/vine':
         specifier: ^3.0.1
         version: 3.0.1
@@ -633,8 +633,8 @@ packages:
   '@swc/types@0.1.25':
     resolution: {integrity: sha512-iAoY/qRhNH8a/hBvm3zKj9qQ4oc2+3w1unPJa2XvTK3XjeLXtzcCingVPw/9e5mn1+0yPqxcBGp9Jf0pkfMb1g==}
 
-  '@thepierrre/ecom-common@0.0.7':
-    resolution: {integrity: sha512-dtdjqfx8EqFWdbRybQgIGXUASt4I8d7GxZssAGTCgwGoPkYE9jzdP7H+gie7gcRxz4resak4d1eeIc9TMgmf2A==, tarball: https://npm.pkg.github.com/download/@thepierrre/ecom-common/0.0.7/5eeaf2396a3dec0ad06216a101fc5e11587f4368}
+  '@thepierrre/ecom-common@0.0.8':
+    resolution: {integrity: sha512-WmShgPutCmQ4dy1EtJ0urFmij0N2NK0myUIWCfoQDpPCTUDo0ZW+a897DyjyuPvA9feqhz+TJeJRonhcBxmIEA==, tarball: https://npm.pkg.github.com/download/@thepierrre/ecom-common/0.0.8/f9ffca6bd447eda23e02725729745375182fb82f}
 
   '@tokenizer/inflate@0.2.7':
     resolution: {integrity: sha512-MADQgmZT1eKjp06jpI2yozxaU9uVs4GzzgSL+uEq7bVcJ9V1ZXQkeGNql1fsSI0gMy1vhvNTNbUqrx+pZfJVmg==}
@@ -3055,7 +3055,7 @@ snapshots:
     dependencies:
       '@swc/counter': 0.1.3
 
-  '@thepierrre/ecom-common@0.0.7':
+  '@thepierrre/ecom-common@0.0.8':
     dependencies:
       '@vinejs/vine': 4.1.0
 
