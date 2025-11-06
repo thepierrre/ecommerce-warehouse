@@ -1,5 +1,5 @@
 import InventoryItem from "#models/inventory_item";
-import { OrderItem } from "../../types/order_item.js";
+import { OrderItem } from "@thepierrre/ecom-common";
 
 export type StockCheckResultBase = {
   orderNumber: string;

@@ -1,6 +1,6 @@
 {
-  "name": "ecommerce-warehouse",
-  "version": "0.0.0",
+  "name": "ecom-warehouse",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "license": "UNLICENSED",
@@ -54,10 +54,12 @@
     "@adonisjs/core": "^6.18.0",
     "@adonisjs/cors": "^2.2.1",
     "@adonisjs/lucid": "^21.8.0",
+    "@thepierrre/ecom-common": "0.0.7",
     "@vinejs/vine": "^3.0.1",
     "date-fns": "^4.1.0",
     "luxon": "^3.7.2",
     "nats": "^2.29.3",
+    "orm": "link:@adonisjs/lucid/orm",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
     "uuid": "^13.0.0"

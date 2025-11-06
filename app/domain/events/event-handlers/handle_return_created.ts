@@ -1,15 +1,11 @@
-import vine from "@vinejs/vine";
-import { ReturnCreatedEventSchema } from "../types/return_created_event_schema.js";
 import Return from "#models/return";
 import db from "@adonisjs/lucid/services/db";
 import Order from "#models/order";
-import { emitReturnRejected } from "../event-emitters/emit_return_rejected.js";
+import { emitReturnRejected } from "../event-emitters/emit_return_rejected";
+import { ReturnCreatedEvent, ReturnCreatedEventSchema } from "@thepierrre/ecom-common";
 
 export async function handleReturnCreated(raw: unknown) {
-  const { orderNumber, returnNumber, items } = await vine.validate({
-    schema: ReturnCreatedEventSchema,
-    data: raw,
-  });
+  const { orderNumber, returnNumber, items } = (await ReturnCreatedEventSchema.validate(raw)) as ReturnCreatedEvent;
 
   const trx = await db.transaction();
 

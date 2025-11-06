@@ -14,6 +14,7 @@ export async function getNats(): Promise<NatsConnection> {
   return nc;
 }
 
+// TODO: Specify a payload type for safety
 export async function emit(subject: string, payload: unknown) {
   const nc = await getNats();
   const msg = JSON.stringify(payload);

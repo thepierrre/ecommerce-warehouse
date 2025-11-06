@@ -1,18 +1,14 @@
-import vine from "@vinejs/vine";
-import { checkStock } from "../../actions/check_stock.js";
-import { emitOrderAccepted } from "../event-emitters/emit_order_accepted.js";
-import { emitOrderRejected } from "../event-emitters/emit_order_rejected.js";
-import { OrderCreatedEventSchema } from "../types/order_created_event_schema.js";
-import Order from "#models/order";
-import { reserveStock } from "../../actions/reserve_stock.js";
+import { checkStock } from "../../actions/check_stock";
+import { emitOrderAccepted } from "../event-emitters/emit_order_accepted";
+import { emitOrderRejected } from "../event-emitters/emit_order_rejected";
+import { reserveStock } from "../../actions/reserve_stock";
+import Order from "../../../models/order";
+import { OrderCreatedEvent, OrderCreatedEventSchema } from "@thepierrre/ecom-common";
 
 // TODO: Reserve stock for order items
 
 export async function handleOrderCreated(raw: unknown) {
-  const { orderNumber, items } = await vine.validate({
-    schema: OrderCreatedEventSchema,
-    data: raw,
-  });
+  const { orderNumber, items } = (await OrderCreatedEventSchema.validate(raw)) as OrderCreatedEvent;
 
   let missingSkus: string[];
   try {
