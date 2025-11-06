@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { emit } from "../../../nats/client";
-import { WAREHOUSE_RETURN_REJECTED_EVENT } from "@thepierrre/ecom-common";
+import { WAREHOUSE_RETURN_REJECTED_SUBJECT } from "@thepierrre/ecom-common";
 
 export async function emitReturnRejected(payload: {
   orderNumber: string;
@@ -10,7 +10,7 @@ export async function emitReturnRejected(payload: {
 }) {
   const { orderNumber, returnNumber, reason, missingSkus } = payload;
 
-  await emit(WAREHOUSE_RETURN_REJECTED_EVENT, {
+  await emit(WAREHOUSE_RETURN_REJECTED_SUBJECT, {
     schemaVersion: 1,
     eventId: uuid(),
     occurredAt: new Date().toISOString(),

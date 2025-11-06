@@ -1,4 +1,4 @@
-import { WAREHOUSE_ORDER_SHIPPED_EVENT } from "@thepierrre/ecom-common";
+import { WAREHOUSE_ORDER_SHIPPED_SUBJECT } from "@thepierrre/ecom-common";
 import { emit } from "../../../nats/client";
 import { v4 as uuid } from "uuid";
 
@@ -10,7 +10,7 @@ export async function emitOrderShipped(payload: {
 }) {
   const { orderNumber, packerId, weightKg, dimensionsCm } = payload;
 
-  await emit(WAREHOUSE_ORDER_SHIPPED_EVENT, {
+  await emit(WAREHOUSE_ORDER_SHIPPED_SUBJECT, {
     schemaVersion: 1,
     eventId: uuid(),
     occurredAt: new Date().toISOString(),
