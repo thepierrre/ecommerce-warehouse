@@ -1,7 +1,8 @@
 import router from "@adonisjs/core/services/router";
+const HealthChecksController = () => import("#controllers/health_checks_controller");
 
 // Health & Monitoring
-// router.get('/health', '');
+router.get("/health", [HealthChecksController]);
 // router.get('/metrics', '');
 
 // Orders reading
