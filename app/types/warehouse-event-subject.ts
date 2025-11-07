@@ -1,0 +1,47 @@
+import {
+  CARRIER_ORDER_DELIVERED_SUBJECT,
+  CARRIER_ORDER_DELIVERY_ATTEMPTED_SUBJECT,
+  CARRIER_ORDER_DELIVERY_FAILED_SUBJECT,
+  CARRIER_ORDER_OUT_FOR_DELIVERY_SUBJECT,
+  CARRIER_ORDER_RETURNED_TO_SENDER_SUBJECT,
+  WAREHOUSE_ORDER_ACCEPTED_SUBJECT,
+  WAREHOUSE_ORDER_PICKED_SUBJECT,
+  WAREHOUSE_ORDER_PROCESSING_STARTED_SUBJECT,
+  WAREHOUSE_ORDER_REJECTED_SUBJECT,
+  WAREHOUSE_ORDER_SHIPPED_SUBJECT,
+  WAREHOUSE_RETURN_ACCEPTED_SUBJECT,
+  WAREHOUSE_RETURN_COMPLETED_SUBJECT,
+  WAREHOUSE_RETURN_RECEIVED_SUBJECT,
+  WAREHOUSE_RETURN_REJECTED_SUBJECT,
+} from "@thepierrre/ecom-common";
+
+export type WarehouseEventSubject = WarehouseOrderEventSubject | WarehouseReturnEventSubject;
+
+export type WarehouseOrderEventSubject =
+  | typeof WAREHOUSE_ORDER_ACCEPTED_SUBJECT
+  | typeof CARRIER_ORDER_DELIVERED_SUBJECT
+  | typeof CARRIER_ORDER_DELIVERY_ATTEMPTED_SUBJECT
+  | typeof CARRIER_ORDER_DELIVERY_FAILED_SUBJECT
+  | typeof CARRIER_ORDER_OUT_FOR_DELIVERY_SUBJECT
+  | typeof WAREHOUSE_ORDER_PICKED_SUBJECT
+  | typeof WAREHOUSE_ORDER_PROCESSING_STARTED_SUBJECT
+  | typeof WAREHOUSE_ORDER_REJECTED_SUBJECT
+  | typeof CARRIER_ORDER_RETURNED_TO_SENDER_SUBJECT
+  | typeof WAREHOUSE_ORDER_SHIPPED_SUBJECT;
+
+  export type WarehouseReturnEventSubject = typeof WAREHOUSE_RETURN_ACCEPTED_SUBJECT | typeof WAREHOUSE_RETURN_REJECTED_SUBJECT | typeof WAREHOUSE_RETURN_COMPLETED_SUBJECT | typeof WAREHOUSE_RETURN_RECEIVED_SUBJECT;
+
+// export type WarehouseEvent = WarehouseOrderEvent | WarehouseReturnEvent;
+
+// export type WarehouseOrderEvent =
+//   | OrderDeliveredEvent
+//   | OrderDeliveryAttemptedEvent
+//   | OrderDeliveryFailedEvent
+//   | OrderOutForDeliveryEvent
+//   | OrderPickedEvent
+//   | OrderProcessingStartedEvent
+//   | OrderRejectedEvent
+//   | OrderReturnedToSenderEvent
+//   | OrderShippedEvent;
+
+//   export type WarehouseReturnEvent = ReturnCompletedEvent | ReturnReceivedEvent;

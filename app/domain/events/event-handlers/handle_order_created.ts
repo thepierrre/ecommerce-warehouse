@@ -5,8 +5,6 @@ import { reserveStock } from "../../actions/reserve_stock";
 import Order from "../../../models/order";
 import { OrderCreatedEvent, OrderCreatedEventSchema } from "@thepierrre/ecom-common";
 
-// TODO: Reserve stock for order items
-
 export async function handleOrderCreated(raw: unknown) {
   const { orderNumber, items } = (await OrderCreatedEventSchema.validate(raw)) as OrderCreatedEvent;
 

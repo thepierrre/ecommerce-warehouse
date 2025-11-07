@@ -1,4 +1,6 @@
 import logger from "@adonisjs/core/services/logger";
+import { WarehouseEvent } from "app/types/warehouse-event";
+import { WarehouseEventSubject } from "app/types/warehouse-event-subject";
 import { connect, NatsConnection, StringCodec } from "nats";
 
 let nc: NatsConnection | null = null;
@@ -14,14 +16,15 @@ export async function getNats(): Promise<NatsConnection> {
   return nc;
 }
 
-// TODO: Specify a payload type for safety
-export async function emit(subject: string, payload: unknown) {
+
+export async function emit(subject: WarehouseEventSubject, payload: WarehouseEvent) {
   const nc = await getNats();
   const msg = JSON.stringify(payload);
   nc.publish(subject, sc.encode(msg));
   logger.info(`Published NATS event: ${subject}: ${msg}`);
 }
 
+// TODO: Specify a payload type for safety
 export async function subscribe(subject: string, handler: (data: unknown) => Promise<void> | void) {
   const nc = await getNats();
   const sub = nc.subscribe(subject);
