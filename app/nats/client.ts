@@ -16,7 +16,6 @@ export async function getNats(): Promise<NatsConnection> {
   return nc;
 }
 
-
 export async function emit(subject: WarehouseEventSubject, payload: WarehouseEvent) {
   const nc = await getNats();
   const msg = JSON.stringify(payload);
